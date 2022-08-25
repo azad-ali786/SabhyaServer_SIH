@@ -32,6 +32,7 @@ const Onboarding = () => {
         profilePhoto: ""
     })
 
+
     function accountTypeHandler(account) {
         // setState({ ...state, accountType: account });
         setAccountType((account));
