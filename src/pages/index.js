@@ -16,7 +16,7 @@ const Home = (props) => {
             router.push('/login')
         }
     }, []);
-    
+
 
     const data = [
         {
@@ -92,7 +92,7 @@ const Home = (props) => {
                             <Link href={d.imageLink}>
                                 <div className={`${styles.gridItem}`}>
                                     <DisplayCard
-                                        key={d.imageLink}
+                                        key={idx}
                                         cardType="institute"
                                         imgLink={d.imageLink}
                                         cardName={d.instituteName}
