@@ -1,9 +1,15 @@
 import React from 'react';
-import styles from "./Profile.module.css";
+import ProfileLayout from '../../styleGuide/layout/profile';
+import SideNavLayout from '../../styleGuide/layout/sidenav';
 
-const Profile = () => {
+function Profile() {
     return (
-        <div>Profile</div>
+        <SideNavLayout
+            activeTab="profile"
+            pageHeader="Profile"
+        >
+            <div><ProfileLayout /></div>
+        </SideNavLayout>
     )
 }
 
