@@ -1,5 +1,5 @@
 import { Form, Container, Button, Input, Message } from "semantic-ui-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import web3 from "../../../../ethereum/web3";
 import Resource from "../../../../ethereum/resource";
 import { create } from 'ipfs-http-client';
@@ -8,20 +8,50 @@ import SideNavLayout from "../../../styleGuide/layout/sidenav";
 import InputBox from "../../../styleGuide/components/inputBox";
 import styles from "./NewRequest.module.css";
 import PageTwo from "../../../styleGuide/layout/onboarding/pageTwo";
+import DnD from "../../../styleGuide/components/DnD";
+import ImageDnD from "../../../styleGuide/components/imageDnD";
+import FloatingButton from "../../../styleGuide/components/floatingButton";
+import axios from 'axios';
+import { Icon } from '@iconify/react';
 
 const NewRequest = (props) => {
 
-    const { address } = props;
-    console.log(props, "my values")
-    const [amount, setamount] = useState('');
+    const { mc, fc, uc, ma, address } = props;
+    // console.log(props, "my values")
+    const [amount, setAmount] = useState('0');
     const [buffer, setbuffer] = useState(null);
-    const [hash, sethash] = useState('');
-    const [description, setdescription] = useState('');
-    const [recipient, setrecipient] = useState('');
+    const [hash, setHash] = useState('');
+    const [description, setDescription] = useState('');
+    const [recipient, setRecipient] = useState('0xFAdade5f381d0D383C54ef4Bf5F6c2f2A116eb64');
     const [loading, setloading] = useState(false)
     const [msg, setmsg] = useState({ header: '', message: '' });
     const [resourceName, setResourceName] = useState("");
     const [categories, setCategories] = useState([]);
+    const [imgLink, setImgLink] = useState(null);
+    const [resourceFileName, setResourceFileName] = useState("");
+    const [resourceFileSize, setResourceFileSize] = useState("");
+
+    const onDrop = useCallback(acceptedFiles => {
+        imageUpload(acceptedFiles[0]);
+    }, []);
+
+    const imageUpload = async (imgFile) => {
+        try {
+            if (imgFile) {
+                const formInfo = new FormData();
+                formInfo.append("file", imgFile);
+                formInfo.append("upload_preset", "upload_img");
+                formInfo.append("cloud_name", "sih-testing");
+
+                const imgUploaded = await axios.post("https://api.cloudinary.com/v1_1/sih-testing/image/upload", formInfo)
+                setImgLink(imgUploaded.data.url)
+                console.log(imgLink)
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 
     // const downloadURL = "https://sabhyaserver101.infura-ipfs.io/ipfs/QmQZa9ydrFiNc7cvZpU1csFT9pw1dHm6ay4iB6FiHwoTR8";
 
@@ -41,11 +71,14 @@ const NewRequest = (props) => {
         },
     });
 
-    const inputHandler = (event) => {
-        const { value, name } = event.target;
-        if (name === "description") setdescription(value);
-        else if (name === "amount") setamount(value);
-        else setrecipient(value);
+
+
+    const inputHandler = (e) => {
+        const { value, name } = e.target;
+        if (name == "resourceName") setResourceName((value));
+        else if (name == "description") setDescription((value));
+        else if (name == "amount") setAmount((value));
+        else if (name == "recipient") setRecipient((value));
     }
 
     function categoryHandler(category) {
@@ -63,18 +96,22 @@ const NewRequest = (props) => {
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(file);
         reader.onloadend = () => {
-            setbuffer(Buffer(reader.result))
+            setbuffer(Buffer(reader.result));
         }
+        setResourceFileName((file.name));
+        setResourceFileSize((file.size))
+        console.log(file);
     }
     const fileUploadHandler = async (event) => {
         event.preventDefault();
         try {
             const res = await client.add(buffer);
-            console.log("IPFS RES", res);
-            sethash(res.path);
+            console.log("IPFS RES", res.path);
+            setHash((res.path));
             console.log("//////hash");
             // console.log('buffer', buffer);
             // console.log(res);
+
             console.log(hash);
             console.log("//////hash");
         }
@@ -83,21 +120,8 @@ const NewRequest = (props) => {
         }
     }
 
-    const seeFileHash = async (event) => {
-        event.preventDefault();
-        try {
-            console.log("//////hash");
-            // console.log('buffer', buffer);
-            // console.log(res);
-            console.log(hash);
-            console.log("//////hash");
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
     const submitHandler = async (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         if (Number(amount) < 0) {
             setloading(false);
             setmsg({
@@ -141,6 +165,25 @@ const NewRequest = (props) => {
                 from: accounts[0],
             });
             setmsg({ header: "Congratulations", message: "You've successfully created request" });
+            const details = {
+                data: {
+                    "idEth": address,
+                    "name": resourceName,
+                    "desc": description,
+                    "file": hash,
+                    "fileIdx": fc,
+                    "thumbnail": imgLink,
+                    "author": ["jitul", "kongon", "testing"],
+                    "keyWords": ["dark", "light"],
+                    "minumunContribution": amount
+                },
+                "_type": "institute"
+
+            }
+
+            response = await axios.post("https://gentle-lowlands-02621.herokuapp.com/hei/addNewContent", details);
+            console.log(response);
+
         }
         catch (err) {
             let message = '';
@@ -164,17 +207,17 @@ const NewRequest = (props) => {
         >
             <form onSubmit={submitHandler}>
                 <div className={`${styles.input}`}>
-                    <div>
+                    <div className={`${styles.row}`}>
                         <InputBox
                             inputType="text"
                             label="Name of Resource"
                             value={resourceName}
                             name="resourceName"
                             width="60vw"
-                            onChange={inputHandler}
+                            changeHandler={inputHandler}
                         />
                     </div>
-                    <div>
+                    <div className={`${styles.row}`}>
                         <InputBox
                             inputType="textarea"
                             label="Description"
@@ -182,22 +225,69 @@ const NewRequest = (props) => {
                             name="description"
                             width="60vw"
                             height="30vh"
-                            onChange={inputHandler}
+                            changeHandler={inputHandler}
                         />
                     </div>
-                    <div> upload resource</div>
-                    <div>upload thumbnail</div>
-                    <div>
+                    <div className={`${styles.row}`}>
+                        <div>
+                            <div className={`${styles.uploadResourceWidget}`}>
+                                {/* <DnD
+                                    onDrop={fileHandler}
+                                    accept={".doc,.pdf,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document/*"}
+                                /> */}
+                                <label className={`${styles.label}`}>
+                                    <input type="file" onChange={fileHandler} required className={`${styles.resourceChoose}`} />
+                                    Choose Resource
+                                </label>
+                                <div className={`${styles.info}`} >
+                                    <p >File Name: <span className={`${styles.fileDetails}`}> {resourceFileName == "" ? "          -" : resourceFileName}</span></p>
+                                    <p >File Size: <span className={`${styles.fileDetails}`}> {resourceFileSize == "" ? "          -" : `${resourceFileSize} B`}</span></p>
+                                </div>
+                                <div className={`${styles.resourceUpload}`} onClick={fileUploadHandler}>
+                                    Confirm & Upload Resource
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`${styles.rowSecondItem}`}>
+                            <div className={`${styles.categoriesLabel}`}>Upload thumbnail</div>
+                            <div className={`${styles.dnd}`}>
+                                {imgLink ?
+                                    <div>
+                                        <button type="button" onClick={() => { setImgLink(null) }} class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                            <Icon icon="akar-icons:cross" />
+                                        </button>
+                                        <img src={imgLink} />
+                                    </div>
+                                    : <ImageDnD
+                                        onDrop={onDrop}
+                                        accept={"image/*"}
+                                    />
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${styles.row}`}>
                         <InputBox
                             inputType="text"
-                            label="Contributor Wallet ID"
+                            label="Contributor Wallet ID (Optional)"
                             value={recipient}
                             name="recipient"
                             width="60vw"
-                            onChange={inputHandler}
+                            changeHandler={inputHandler}
                         />
                     </div>
-                    <div>
+                    <div className={`${styles.row}`}>
+                        <InputBox
+                            inputType="number"
+                            label="Premium Amount Value (Any amount entered will be compensated to the Contributor)"
+                            value={amount}
+                            name="amount"
+                            width="60vw"
+                            changeHandler={inputHandler}
+                        />
+                    </div>
+                    <div className={`${styles.row}`}>
                         <div className={`${styles.categoriesLabel}`}>Categories</div>
                         <PageTwo
                             interestList={categories}
@@ -205,15 +295,21 @@ const NewRequest = (props) => {
                             shrink="1"
                         />
                     </div>
-
-
+                </div>
+                <div className={`${styles.uploadBtn}`} onClick={(e) => {
+                    e.preventDefault;
+                    submitHandler();
+                }}>
+                    <FloatingButton
+                        btnText="Upload"
+                    />
                 </div>
 
-
-
-
-
             </form>
+
+
+
+
             <Container textAlign="center" text>
                 <Form
                     style={{ marginTop: "5rem" }}
@@ -223,49 +319,7 @@ const NewRequest = (props) => {
                     success={msg.header === "Congratulations"}                >
 
                     <Form.Field>
-                        <label style={{ marginBottom: "4px" }} className="text-uppercase">
-                            Description
-                        </label>
-                        <Input
-                            required
-                            onChange={inputHandler}
-                            value={description}
-                            name="description"
-                            icon="question circle"
-                            iconPosition="left"
-                            placeholder="Description..."
-                        />
-                        <label
-                            style={{ marginBottom: "4px", marginTop: "2rem" }}
-                            className="text-uppercase"
-                        >
-                            Request Amount (ETH)
-                        </label>
-                        <Input
-                            required
-                            onChange={inputHandler}
-                            type="number"
-                            value={amount}
-                            name="amount"
-                            icon="money bill alternate"
-                            iconPosition="left"
-                            placeholder="Withdraw amount..."
-                        />
-                        <label style={{ marginTop: "2rem" }} className="text-uppercase">
-                            Uploader
-                        </label>
-                        <Input
-                            required
-                            onChange={inputHandler}
-                            value={recipient}
-                            name="recipient"
-                            icon="ethereum"
-                            iconPosition="left"
-                            placeholder="Recipient address..."
-                        />
-                        <label style={{ marginTop: "2rem" }} className="text-uppercase">
-                            File
-                        </label>
+
                         <input type="file" onChange={fileHandler} required />
                     </Form.Field>
                     <Button primary onClick={fileUploadHandler} >
@@ -274,27 +328,40 @@ const NewRequest = (props) => {
                     <Button primary type="submit" >
                         CREATE REQUEST
                     </Button>
-                    <Button primary onClick={seeFileHash} >
-                        SEE HASH
-                    </Button>
 
                     {/* <NewDownload address={address}/> */}
                     <Message success header={msg.header} content={msg.message} />
                     <Message error header={msg.header} content={msg.message} />
                 </Form>
             </Container>
+
         </SideNavLayout>
     </>
 }
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(context) {
+    //  Runs only on the server. and works for every incoming request
+    //   //should be used whe we need req,res or if we want to regenerate page multiple times
+    // console.log(context);
     try {
-        const address = ctx.params.address;
+        const address = context.params.address;
+        console.log(address);
+        const campaign = Resource(address);
+        const details = await campaign.methods.getHeiDetails().call();
+        const {
+            0: mc, // minimumContribution
+            1: fc, // file count
+            2: uc, // userCount
+            3: ma  // managerAddress
+        } = details;
+        console.log("this address : " + address);
         return {
-            props: { address }
+            props: { mc, fc, uc, ma, address } // ca = Contract Address;
         }
     } catch (err) {
         return { props: err };
     }
+
+
 }
 export default NewRequest;
 
@@ -304,4 +371,4 @@ export default NewRequest;
  //ex url: https://ipfs.infura.io/ipfs/${hash}
 
  //for this project
- //https://sabhyaserver101.infura-ipfs.io/ipfs/${hash}
+ //+-+${hash}

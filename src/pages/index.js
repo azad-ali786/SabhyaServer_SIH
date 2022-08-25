@@ -12,12 +12,12 @@ const Home = (props) => {
     const { isAuthenticated } = useMoralis();
 
     useEffect(() => {
-        if (!isAuthenticated) {
+        if (isAuthenticated) {
             router.push('/login')
         }
     }, []);
 
-    console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
+    // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
 
 
     // const data = [
@@ -89,7 +89,7 @@ const Home = (props) => {
             <SideNavLayout
                 activeTab="home"
                 pageHeader="Home"
-                userAddress={isAuthenticated ? user.attributes.ethAddress : ""}
+            // userAddress={isAuthenticated ? user.attributes.ethAddress : ""}
             >
                 <div className={`${styles.gridContainer}`}>
                     {data.map(function (d, idx) {

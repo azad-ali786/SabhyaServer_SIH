@@ -22,23 +22,24 @@ function PageTwo({ interestList, interestToggler, shrink }) {
     ]
     return (
         <div className={`${styles.pageTwo}`}>
-            {shrink == "0" ?
+            {shrink == "1" ?
+                <></>
+                :
                 <div className={`${styles.pageText} `}>
                     <b>Pick the subjects that suit your interests (any 5)</b>
                 </div>
-                :
-                <></>
+
             }
 
 
 
-            <div className={`${shrink == "0" ? styles['gridContainer'] : styles['shrunkGridContainer']}`}>
+            <div className={`${shrink == "1" ? styles['shrunkGridContainer'] : styles['gridContainer']}`}>
                 {interests.map(function (i, idx) {
                     return (
 
                         <div
                             onClick={() => interestToggler(i)}
-                            className={`${shrink == "0" ? styles['gridItem'] : styles['shrunkGridItem']}`}
+                            className={`${shrink == "1" ? styles['shrunkGridItem'] : styles['gridItem']}`}
                             key={idx}
                         >
                             <MultipleSelectButton
