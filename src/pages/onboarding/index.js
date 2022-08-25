@@ -7,36 +7,52 @@ import Welcome from '../../styleGuide/components/welcome';
 import PageOne from '../../styleGuide/layout/onboarding/pageOne';
 import PageThree from '../../styleGuide/layout/onboarding/pageThree';
 import PageTwo from '../../styleGuide/layout/onboarding/pageTwo';
+import InstituteDetails from '../../styleGuide/layout/onboarding/instituteDetails';
+import { IndividualDetails } from '../../styleGuide/layout/onboarding/individualDetails';
 
 const Onboarding = () => {
     const [page, setPage] = useState(1);
-    const [state, setState] = useState({
-        accountType: "",
-        interests: [],
+    const [accountType, setAccountType] = useState("");
+    const [interests, setInterests] = useState([]);
+    const [instituteDetails, setInstituteDetails] = useState({
         instituteName: "",
         instituteID: "",
         locationPIN: "",
         coverPhoto: "",
         subcriptionRate: ""
     });
+    const [individualDetails, setIndividualDetails] = useState({
+        userName: "",
+        associatedInstituteID: "",
+        profilePhoto: ""
+    })
 
     function accountTypeHandler(account) {
-        setState({ ...state, accountType: account });
+        // setState({ ...state, accountType: account });
+        setAccountType((account));
     }
 
     function interestToggler(interest) {
-        let list = state.interests;
+        let list = [...interests];
         if (list.indexOf(interest) == -1)
             list.push(interest);
         else
             list.splice(list.indexOf(interest), 1);
 
-        setState({ ...state, interests: list })
+        setInterests((list));
     }
 
-    const handleDetailChange = e => {
+    const handleInstituteDetailChange = e => {
         const { name, value } = e.target;
-        setState(prevState => ({
+        setInstituteDetails(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleIndividualDetailChange = e => {
+        const { name, value } = e.target;
+        setIndividualDetails(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -64,7 +80,7 @@ const Onboarding = () => {
 
                     <PageOne
                         accountTypeHandler={accountTypeHandler}
-                        account={state.accountType}
+                        account={accountType}
                     />
 
                 </div>
@@ -98,7 +114,7 @@ const Onboarding = () => {
 
                     <PageTwo
                         interestToggler={interestToggler}
-                        interestList={state.interests}
+                        interestList={interests}
                     />
 
                 </div>
@@ -136,14 +152,39 @@ const Onboarding = () => {
                         </div>
                     </div>
 
-                    <PageThree
-                        instituteName={state.instituteName}
-                        instituteID={state.instituteID}
-                        locationPIN={state.locationPIN}
-                        coverPhoto={state.coverPhoto}
-                        subcriptionRate={state.subcriptionRate}
-                        changeHandler={handleDetailChange}
-                    />
+                    {
+                        accountType == "institution" ?
+                            <InstituteDetails
+                                instituteName={instituteDetails.instituteName}
+                                instituteID={instituteDetails.instituteID}
+                                locationPIN={instituteDetails.locationPIN}
+                                coverPhoto={instituteDetails.coverPhoto}
+                                subscriptionRate={instituteDetails.subscriptionRate}
+                                changeHandler={handleInstituteDetailChange}
+                            />
+                            :
+                            <IndividualDetails
+                                userName={individualDetails.userName}
+                                associatedInstituteID={individualDetails.associatedInstituteID}
+                                profilePhoto={individualDetails.profilePhoto}
+                                changeHandler={handleIndividualDetailChange}
+                            />
+                    }
+                    {/* <PageThree
+                        accountType={accountType}
+                        instituteName={instituteDetails.instituteName}
+                        instituteID={instituteDetails.instituteID}
+                        locationPIN={instituteDetails.locationPIN}
+                        coverPhoto={instituteDetails.coverPhoto}
+                        subscriptionRate={instituteDetails.subcriptionRate}
+                        instituteChangeHandler={handleInstituteDetailChange}
+                        userName={individualDetails.userName}
+                        associatedInstituteID={individualDetails.associatedInstituteID}
+                        profilePhoto={individualDetails.profilePhoto}
+                        individualChangeHandler={handleIndividualDetailChange}
+
+
+                    /> */}
                 </div>
                 {/* **********ONBOARDING SCREEN 3********** */}
 
