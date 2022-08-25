@@ -4,6 +4,10 @@
     color: #7C7C7C;
 }
 
+.largeHeight{
+    height: 40px;
+}
+
 .inputField{
     border: 2px solid #CAE9FF;
     height: 40px;

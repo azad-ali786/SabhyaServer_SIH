@@ -17,6 +17,9 @@ const Home = (props) => {
         }
     }, []);
 
+    // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
+
+
 
     // const data = [
     //     {
@@ -60,7 +63,6 @@ const Home = (props) => {
     //         subscriptionRate: "129",
     //         subscriberCount: "24.5k",
     //         resourceCount: "354"
-
     //     }
     // ];
 
@@ -80,19 +82,21 @@ const Home = (props) => {
     );
 
 
+
     return (
         <>
             <SideNavLayout
                 activeTab="home"
                 pageHeader="Home"
+            // userAddress={isAuthenticated ? user.attributes.ethAddress : ""}
             >
                 <div className={`${styles.gridContainer}`}>
                     {data.map(function (d, idx) {
                         return (
-                            <Link href={d.imageLink}>
+                            <Link href={d.link}>
                                 <div className={`${styles.gridItem}`}>
                                     <DisplayCard
-                                        key={idx}
+                                        key={d.link}
                                         cardType="institute"
                                         imgLink={d.imageLink}
                                         cardName={d.instituteName}
