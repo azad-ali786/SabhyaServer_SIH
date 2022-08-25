@@ -12,7 +12,7 @@ const Home = (props) => {
     const { isAuthenticated } = useMoralis();
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
             router.push('/login')
         }
     }, []);
