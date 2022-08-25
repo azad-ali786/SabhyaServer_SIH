@@ -1,7 +1,7 @@
 //host.campaign/new
 //create new campaign
 
-import Layout from "../../components/Layout";
+import Layout from "../../styleGuide/layout/sidenav";
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import { useState } from "react";
 import hei from "../../../ethereum/hei";
