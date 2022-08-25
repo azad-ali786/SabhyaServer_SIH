@@ -53,6 +53,26 @@ const Onboarding = () => {
         }));
     };
 
+    const imageUpload= async(imgFile)=>{
+        try{
+            if(imgFile)
+            {
+                const formInfo= new FormData();
+                formInfo.append("file",imgFile);
+                formInfo.append("upload_preset","upload_img");
+                formInfo.append("cloud_name","sih-testing");
+
+                const imgUploaded = await axios.post("https://api.cloudinary.com/v1_1/sih-testing/image/upload",formInfo)
+                console.log(imgUploaded.data.url,"imgUploaded")
+            }
+            console.log(imgFile.data,"file img")
+        }
+        catch(e){
+
+        }
+        
+    }
+
     const handleIndividualDetailChange = e => {
         const { name, value } = e.target;
         setIndividualDetails(prevState => ({
@@ -69,7 +89,7 @@ const Onboarding = () => {
             const accounts = await web3.eth.getAccounts();
             setHash(await hei.methods.createResource(subcriptionRate).call({
                 from: accounts[0],
-            }));
+            }));f
         }
         catch (err) {
             let message = '';
@@ -89,8 +109,8 @@ const Onboarding = () => {
                 const details = {
                     data:{
                         name:instituteDetails.instituteName,
-                        hash:"123123",
-                        email:"yoyoyyoyoyo@gmail.com",
+                        hash:"12423532",
+                        email:"yo1@gmail.com",
                         instiID:instituteDetails.instituteID,
                         pin:instituteDetails.locationPIN,
                         img:instituteDetails.coverPhoto,
@@ -101,14 +121,15 @@ const Onboarding = () => {
                     _type:'institute',
     
                 }
-                console.log(details,'instituteDetails')
-                response =  await axios.post("http://localhost:8080/auth/createAccountHEI", details);
+                console.log(hash,"hash")
+                // console.log(details,'instituteDetails')
+                response =  await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", details);
                
             } else { 
-                response =  await  axios.post("http://localhost:8080/auth/createAccountUser", details)
+                response =  await  axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", details)
             }
-            console.log(response,"response")
-            // router.push("/");
+            // console.log(response,"response")
+            router.push("/");
         }
         catch(e){
             console.log(e,"error")
@@ -200,10 +221,10 @@ const Onboarding = () => {
                                     </div>
                         </div>
                     </div>
-
+                    
                     {
                         accountType == "institution" ?
-                            <InstituteDetails
+                           <> <InstituteDetails
                                 instituteName={instituteDetails.instituteName}
                                 instituteID={instituteDetails.instituteID}
                                 locationPIN={instituteDetails.locationPIN}
@@ -211,6 +232,8 @@ const Onboarding = () => {
                                 subscriptionRate={instituteDetails.subscriptionRate}
                                 changeHandler={handleInstituteDetailChange}
                             />
+                            <input type="file"  onChange={(e)=>{imageUpload(e.target.files[0])}}  />
+                            </>
                             :
                             <IndividualDetails
                                 userName={individualDetails.userName}

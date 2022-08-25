@@ -49,7 +49,6 @@ const InstituteDetails = ({ instituteName, changeHandler, instituteID, locationP
                         name="coverPhoto"
                         width="200px"
                         changeHandler={changeHandler}
-
                     />
                 </div>
                 <div className={`${styles.rowType2} ${styles.row}`}>
