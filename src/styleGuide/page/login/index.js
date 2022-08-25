@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
 import Image from 'next/image';
 import { useMoralis } from "react-moralis";
-
+import {Icon} from "@iconify/react"
 import Navbar from '../../components/navBar';
 import Welcome from '../../components/welcome';
 import Spinner from '../../components/spinner'
@@ -32,10 +32,13 @@ const Login = () => {
                     <Image src="/metamask_icon.svg" height={15} width={25} /> Connect with MetaMask
                 </button>)}
 
-                {authError ? (<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
-                    <p class="font-bold">Be Warned</p>
-                    <p><span>{authError.name}</span><span>{authError.message}</span></p>
-                </div>) : (<div></div>)}
+                {authError ? (<div class="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+                <Icon icon="bi:info" />
+                <span class="sr-only">Info</span>
+                <div>
+                  <span class="font-medium">{authError.name}</span> {authError.message}
+                </div>
+              </div>) : (<div></div>)}
 
             </div>
 
