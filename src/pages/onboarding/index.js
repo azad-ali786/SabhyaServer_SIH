@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from "./Onboarding.module.css";
 import Link from 'next/link';
+import axios from "axios"
 import FloatingButton from '../../styleGuide/components/floatingButton';
 import Navbar from '../../styleGuide/components/navBar';
 import Welcome from '../../styleGuide/components/welcome';
 import PageOne from '../../styleGuide/layout/onboarding/pageOne';
-import PageThree from '../../styleGuide/layout/onboarding/pageThree';
 import PageTwo from '../../styleGuide/layout/onboarding/pageTwo';
 import InstituteDetails from '../../styleGuide/layout/onboarding/instituteDetails';
 import { IndividualDetails } from '../../styleGuide/layout/onboarding/individualDetails';
@@ -57,9 +57,45 @@ const Onboarding = () => {
             [name]: value
         }));
     };
+    
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        if (Number(subcriptionRate) <= 0) {
+            setmsg({
+                header: 'Error',
+                message: ' Please fill the amount'
+            })
+            return;
+        }
+        try {
+
+            const accounts = await web3.eth.getAccounts();
+            return await hei.methods.createResource(minimumContribution).send({
+                from: accounts[0],
+            });
+        }
+        catch (err) {
+            let message = '';
+            if (err.code === 4001) {
+                message = err.message.split(":")[1];
+            } else {
+                message = err.message;
+            }
+            setmsg({
+                header: 'Error',
+                message: message
+            });
+        }
+        setloading(false);
+    }
 
     const submitHandler = () => {
-        console.log(state);
+        // if(accountType == "institution") {
+        //     axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI",)
+        // }else {
+        //     axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser",)
+        // }
+        console.log(JSON.stringify(instituteDetails))
     }
 
     return (
@@ -170,21 +206,6 @@ const Onboarding = () => {
                                 changeHandler={handleIndividualDetailChange}
                             />
                     }
-                    {/* <PageThree
-                        accountType={accountType}
-                        instituteName={instituteDetails.instituteName}
-                        instituteID={instituteDetails.instituteID}
-                        locationPIN={instituteDetails.locationPIN}
-                        coverPhoto={instituteDetails.coverPhoto}
-                        subscriptionRate={instituteDetails.subcriptionRate}
-                        instituteChangeHandler={handleInstituteDetailChange}
-                        userName={individualDetails.userName}
-                        associatedInstituteID={individualDetails.associatedInstituteID}
-                        profilePhoto={individualDetails.profilePhoto}
-                        individualChangeHandler={handleIndividualDetailChange}
-
-
-                    /> */}
                 </div>
                 {/* **********ONBOARDING SCREEN 3********** */}
 
