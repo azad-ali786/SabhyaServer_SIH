@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./Onboarding.module.css";
-import Link from 'next/link';
 import axios from "axios"
+import { useRouter } from 'next/router'
 import FloatingButton from '../../styleGuide/components/floatingButton';
 import Navbar from '../../styleGuide/components/navBar';
 import Welcome from '../../styleGuide/components/welcome';
@@ -11,6 +11,9 @@ import InstituteDetails from '../../styleGuide/layout/onboarding/instituteDetail
 import { IndividualDetails } from '../../styleGuide/layout/onboarding/individualDetails';
 
 const Onboarding = () => {
+    const router = useRouter();
+
+    const [hash,setHash] = useState("");
     const [page, setPage] = useState(1);
     const [accountType, setAccountType] = useState("");
     const [interests, setInterests] = useState([]);
@@ -58,21 +61,15 @@ const Onboarding = () => {
         }));
     };
     
-    const onSubmitHandler = async (event) => {
-        event.preventDefault();
-        if (Number(subcriptionRate) <= 0) {
-            setmsg({
-                header: 'Error',
-                message: ' Please fill the amount'
-            })
+    const instituteResourceHubHandler = async (subcriptionRate) => {
+        if (Number(subcriptionRate) < 0) {
             return;
         }
         try {
-
             const accounts = await web3.eth.getAccounts();
-            return await hei.methods.createResource(minimumContribution).send({
+            setHash(await hei.methods.createResource(subcriptionRate).call({
                 from: accounts[0],
-            });
+            }));
         }
         catch (err) {
             let message = '';
@@ -81,26 +78,22 @@ const Onboarding = () => {
             } else {
                 message = err.message;
             }
-            setmsg({
-                header: 'Error',
-                message: message
-            });
         }
-        setloading(false);
     }
 
     const submitHandler = () => {
-        // if(accountType == "institution") {
-        //     axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI",)
-        // }else {
-        //     axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser",)
-        // }
-        console.log(JSON.stringify(instituteDetails))
+        if(accountType == "institution") {
+            instituteResourceHubHandler(instituteDetails.subcriptionRate);
+            axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", JSON.stringify(instituteDetails));
+        } else { 
+            axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", JSON.stringify(individualDetails))
+        }
+        router.push("/");
     }
 
     return (
         <div>
-            <form onSubmit={submitHandler} >
+            <form onSubmit= {(e) => submitHandler(e)} >
 
                 {/* **********ONBOARDING SCREEN 1********** */}
                 <div className={`${page == 1 ? "" : styles["hidden"]}`}>
@@ -173,8 +166,6 @@ const Onboarding = () => {
                             />
                         </div>
                         <div>
-                            <Link href="/">
-                                <a>
                                     <div className={`${styles.floatingBtn2}`} onClick={(e) => {
                                         e.preventDefault;
                                         submitHandler();
@@ -183,8 +174,6 @@ const Onboarding = () => {
                                             btnText="SUBMIT"
                                         />
                                     </div>
-                                </a>
-                            </Link>
                         </div>
                     </div>
 
