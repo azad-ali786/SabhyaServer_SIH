@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
-// import { useMoralis } from "react-moralis";
+import { useMoralis } from "react-moralis";
 // import hei from '../../ethereum/hei';
 import SideNavLayout from '../styleGuide/layout/sidenav';
 import Link from 'next/link';
-import DisplayCard from '../styleGuide/components/displaycard';
+import DisplayCard from '../styleGuide/components/displayCard';
 import styles from "./index.module.css";
 
 const Home = (props) => {
-    // const router = useRouter();
-    // const { isAuthenticated, user } = useMoralis();
+    const router = useRouter();
+    const { isAuthenticated, user } = useMoralis();
 
-    // useEffect(() => {
-    //     if (!isAuthenticated) {
-    //         // if (isAuthenticated) {
-    //         router.push('/login')
-    //     }
-    // }, []);
-    // console.log(isAuthenticated);
-    // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push('/login')
+        }
+    }, []);
+    
+
     const data = [
         {
             imageLink: "https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp",
@@ -86,7 +85,6 @@ const Home = (props) => {
             <SideNavLayout
                 activeTab="home"
                 pageHeader="Home"
-            // userAddress={user.attributes.ethAddress}
             >
                 <div className={`${styles.gridContainer}`}>
                     {data.map(function (d, idx) {
