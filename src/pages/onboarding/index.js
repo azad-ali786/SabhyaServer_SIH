@@ -81,14 +81,38 @@ const Onboarding = () => {
         }
     }
 
-    const submitHandler = () => {
-        if(accountType == "institution") {
-            instituteResourceHubHandler(instituteDetails.subcriptionRate);
-            axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", JSON.stringify(instituteDetails));
-        } else { 
-            axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", JSON.stringify(individualDetails))
+    const submitHandler =async  () => {
+        let response;
+        try{
+            if(accountType == "institution") {
+                instituteResourceHubHandler(instituteDetails.subcriptionRate);
+                const details = {
+                    data:{
+                        name:instituteDetails.instituteName,
+                        hash:"asdasdasd",
+                        email:"ht.@gmail.com",
+                        instiID:instituteDetails.instituteID,
+                        pin:instituteDetails.locationPIN,
+                        img:instituteDetails.coverPhoto,
+                        wei:instituteDetails.subcriptionRate,
+                        addressEth:"give eth",
+                        tags:interests,
+                    },
+                    _type:accountType,
+    
+                }
+                console.log(details,'instituteDetails')
+                response =  await axios.post("http://localhost:8000/auth/createAccountHEI", details);
+               
+            } else { 
+                response =  await  axios.post("http://localhost:8000/auth/createAccountUser",details)
+            }
+            console.log(response,"response")
+            // router.push("/");
         }
-        router.push("/");
+        catch(e){
+            console.log(e,"error")
+        }
     }
 
     return (
