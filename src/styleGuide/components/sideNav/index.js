@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 function SideNav({ activeTab, userAddr }) {
 
-    return (<>
+    return (<div className={`${styles.sideNavLayout}`}>
         <div className={`${styles.sideNav}`}>
             <div className={`${styles.profileInfo}`}>
                 <div className={`${styles.coverPhoto}`}>
@@ -41,10 +41,10 @@ function SideNav({ activeTab, userAddr }) {
                     </a>
                 </Link>
 
-                <Link href={`/hei/${userAddr}/new`}>
+                <Link href="/hei/0xC05A1cA4352211Dc028F01eb7c0fEff8d013c86E/new">
                     <a>
                         <div className={`${styles.addButton}`}>
-                            {activeTab == "new" ?
+                            {activeTab == "newResource" ?
                                 <Image src="/addButton_active.svg" height="70" width="70" />
                                 :
                                 <Image src="/addButton_inactive.svg" height="70" width="70" />
@@ -78,7 +78,12 @@ function SideNav({ activeTab, userAddr }) {
                 </Link>
             </div>
         </div>
-    </>
+        {activeTab == "newResource" ?
+            <div className={`${styles.blueVertical}`}></div>
+            :
+            <></>
+        }
+    </div>
     )
 }
 
