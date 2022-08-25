@@ -2,7 +2,7 @@ import React from 'react';
 import MultipleSelectButton from '../../components/multipleSelectButton';
 import styles from "./Onboarding.module.css";
 
-function PageTwo({ interestList, interestToggler }) {
+function PageTwo({ interestList, interestToggler, shrink }) {
 
     const interests = [
         "Philosophy",
@@ -22,18 +22,23 @@ function PageTwo({ interestList, interestToggler }) {
     ]
     return (
         <div className={`${styles.pageTwo}`}>
-            <div className={`${styles.pageText} `}>
-                <b>Pick the subjects that suit your interests (any 5)</b>
-            </div>
+            {shrink == "0" ?
+                <div className={`${styles.pageText} `}>
+                    <b>Pick the subjects that suit your interests (any 5)</b>
+                </div>
+                :
+                <></>
+            }
 
 
-            <div className={`${styles.gridContainer}`}>
+
+            <div className={`${shrink == "0" ? styles['gridContainer'] : styles['shrunkGridContainer']}`}>
                 {interests.map(function (i, idx) {
                     return (
 
                         <div
                             onClick={() => interestToggler(i)}
-                            className={`${styles.gridItem}`}
+                            className={`${shrink == "0" ? styles['gridItem'] : styles['shrunkGridItem']}`}
                             key={idx}
                         >
                             <MultipleSelectButton

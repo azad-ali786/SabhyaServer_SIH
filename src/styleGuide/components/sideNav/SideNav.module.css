@@ -1,3 +1,7 @@
+.sideNavLayout{
+    display: flex;
+    justify-content: flex-start;
+}
 .sideNav{
    height: 100%;  
    width: 18%;  
@@ -90,4 +94,12 @@
 
 .tabIcon{
     margin-right: 1vw;
+}
+.blueVertical{
+    height: 100vh;
+    width:1vw;
+    position: absolute;
+    margin:0 0 0 18%;
+    background: rgb(95,168,211);
+    background: linear-gradient(0deg, rgba(95,168,211,1) 0%, rgba(202,233,255,1) 50%, rgba(27,152,177,1) 100%);
 }
