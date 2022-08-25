@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from "./DisplayCard.module.css";
 import { Icon } from '@iconify/react';
+import FloatingButton from '../floatingButton';
 
 
-function DisplayCard({ cardType, imgLink, cardName, subscriptionRate, subscriberCount, resourceCount, universityName, viewCount }) {
+function DisplayCard({ displaySubscribeButton, cardType, imgLink, cardName, subscriptionRate, subscriberCount, resourceCount, universityName, viewCount }) {
     return (
         <div className={`${styles.instituteCard}`} >
             <div className={`${styles.image}`}>
@@ -45,7 +46,18 @@ function DisplayCard({ cardType, imgLink, cardName, subscriptionRate, subscriber
                     }
 
                 </div>
+                {displaySubscribeButton == "1" ?
+                    <div className={`${styles.subscribeButton}`}>
+                        <FloatingButton
+                            btnText="Subscribe"
+                        />
+                    </div>
+                    :
+                    <></>
+                }
+
             </div>
+
         </div>
     )
 }
