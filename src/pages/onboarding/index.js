@@ -69,14 +69,19 @@ const Onboarding = () => {
             return;
         }
         try {
+            console.log("Trigger ");
             const accounts = await web3.eth.getAccounts();
-            const hash = await hei.methods.createResource(subcriptionRate).call();
-            setHash(hash);
+            console.log("Trigger "+ accounts[0]);
+            const resp =  await hei.methods.createResource(subcriptionRate).send({
+                from: accounts[0],
+            });
+            const HeiList = await hei.methods.getResources().call();
+            setHash(HeiList[HeiList.size-1]);
             const details = {
                 data:{
                     name:instituteDetails.instituteName,
                     hash: hash.toString(),
-                    email:"vxcvcxv@gmail.com",
+                    email:"azad@gmail.com",
                     instiID:instituteDetails.instituteID,
                     pin:instituteDetails.locationPIN,
                     img:instituteDetails.coverPhoto,
