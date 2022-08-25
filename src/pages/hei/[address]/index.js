@@ -1,7 +1,7 @@
 import Layout from "../../../components/Layout";
 import Resource from "../../../../ethereum/resource";
 import { Card, Divider } from 'semantic-ui-react'
-import SubscribeToForm from "../../../components/templates/SubscribeToForm";
+import SubscribeToForm from "../../../styleGuide/components/templates";
 
 const HeiDetails = (props) => {
     const { mc, fc, uc, ma, ca } = props;
