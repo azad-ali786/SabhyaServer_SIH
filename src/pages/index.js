@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 // import hei from '../../ethereum/hei';
 import SideNavLayout from '../styleGuide/layout/sidenav';
 import Link from 'next/link';
-import DisplayCard from '../styleGuide/components/displaycard';
+import DisplayCard from '../styleGuide/components/displayCard';
 import styles from "./index.module.css";
 
 const Home = (props) => {
@@ -86,7 +86,7 @@ const Home = (props) => {
             <SideNavLayout
                 activeTab="home"
                 pageHeader="Home"
-            // userAddress={user.attributes.ethAddress}
+
             >
                 <div className={`${styles.gridContainer}`}>
                     {data.map(function (d, idx) {
@@ -94,7 +94,7 @@ const Home = (props) => {
                             <Link href={d.imageLink}>
                                 <div className={`${styles.gridItem}`}>
                                     <DisplayCard
-                                        key={d.imageLink}
+                                        key={idx}
                                         cardType="institute"
                                         imgLink={d.imageLink}
                                         cardName={d.instituteName}
