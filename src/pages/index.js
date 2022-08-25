@@ -9,7 +9,7 @@ import styles from "./index.module.css";
 
 const Home = (props) => {
     const router = useRouter();
-    const { isAuthenticated, user } = useMoralis();
+    const { isAuthenticated } = useMoralis();
 
     useEffect(() => {
         if (!isAuthenticated) {
