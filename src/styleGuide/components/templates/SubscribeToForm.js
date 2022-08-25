@@ -1,7 +1,7 @@
 import { Form, Button, Input, Label, Message, } from "semantic-ui-react";
 import { useState } from "react";
-import ResourceContract from "../../../ethereum/resource";
-import web3 from "../../../ethereum/web3";
+import ResourceContract from "../../../../ethereum/resource";
+import web3 from "../../../../ethereum/web3";
 import { useRouter } from "next/router"
 
 const SubscribeToForm = (props) => {
