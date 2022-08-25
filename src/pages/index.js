@@ -19,7 +19,7 @@ const Home = (props) => {
 
     // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
 
-<<<<<<< HEAD
+
 
     // const data = [
     //     {
@@ -63,52 +63,6 @@ const Home = (props) => {
     //         subscriptionRate: "129",
     //         subscriberCount: "24.5k",
     //         resourceCount: "354"
-
-=======
-    // const data = [
-    //     {
-    //         imageLink: "https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp",
-    //         instituteName: "National Institute of Technology, Hamirpur",
-    //         subscriptionRate: "349",
-    //         subscriberCount: "3.9k",
-    //         resourceCount: "108"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-
->>>>>>> main
     //     }
     // ];
 
@@ -126,11 +80,7 @@ const Home = (props) => {
             }
         }
     );
-<<<<<<< HEAD
 
-    console.log(data);
-=======
->>>>>>> main
 
 
     return (
