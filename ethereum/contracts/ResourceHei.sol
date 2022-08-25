@@ -5,9 +5,10 @@ pragma solidity ^0.8.0;
 contract ResourceHei {
     Resource[] public Resources;
 
-    function createResource(uint256 minimum) public {
+    function createResource(uint256 minimum) public returns(Resource){
         Resource newResource = new Resource(minimum, msg.sender);
         Resources.push(newResource);
+        return newResource;
     }
 
     function getResources() public view returns (Resource[] memory) {
@@ -78,6 +79,7 @@ contract Resource {
         fileIndex++;
         filesCount++;
     }
+
     function getAllFiles() public view returns (file[] memory){
         return  files;
     }
