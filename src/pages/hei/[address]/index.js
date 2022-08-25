@@ -1,7 +1,7 @@
-import Layout from "../../../components/Layout";
+import SideNavLayout from "../../../styleGuide/layout/sidenav";
 import Resource from "../../../../ethereum/resource";
 import { Card, Divider } from 'semantic-ui-react'
-import SubscribeToForm from "../../../styleGuide/components/templates";
+import SubscribeToForm from "../../../styleGuide/components/templates/SubscribeToForm";
 
 const HeiDetails = (props) => {
     const { mc, fc, uc, ma, ca } = props;
@@ -13,11 +13,11 @@ const HeiDetails = (props) => {
                     <Card.Header>NIT Silchar</Card.Header>
                     <Card.Meta>Address of manager</Card.Meta>
                     <Card.Description style={{
-            whiteSpace: 'nowrap',
-            width: '100%',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis'
-          }}>
+                        whiteSpace: 'nowrap',
+                        width: '100%',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                    }}>
                         {ma}
                     </Card.Description>
                 </Card.Content>
@@ -53,11 +53,11 @@ const HeiDetails = (props) => {
             </Card>
         </Card.Group>
     }
-    return <Layout>
-    <h3>Institutuon Details</h3>
-    {renderCards()}
-    <Divider />
-    </Layout>
+    return <SideNavLayout>
+        <h3>Institutuon Details</h3>
+        {renderCards()}
+        <Divider />
+    </SideNavLayout>
 }
 
 export async function getServerSideProps(context) {

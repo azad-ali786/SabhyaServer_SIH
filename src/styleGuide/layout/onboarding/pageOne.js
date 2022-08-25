@@ -16,18 +16,18 @@ function PageOne({ accountTypeHandler, account }) {
                 <div className={`${styles.pageText}`}>Please choose an account type</div>
                 <div className={`${styles.formDisplay}`}>
                     <div className={`${styles.formOption}`}>
-                        <div className={`${styles.optionIcon} ${account == 'institution' ? styles['selected'] : ""}`}
-                            onClick={() => { accountTypeHandler('institution'); }}>
+                        <div className={`${styles.optionIcon} ${account == 'institute' ? styles['selected'] : ""}`}
+                            onClick={() => { accountTypeHandler('institute'); }}>
                             <Image src="/institution_icon.svg" height="150" width="150" />
                         </div>
-                        <div className={`${styles.pageText} ${account == 'institution' ? styles['selectedText'] : ""}`}>INSTITUTION</div>
+                        <div className={`${styles.pageText} ${account == 'institute' ? styles['selectedText'] : ""}`}>INSTITUTION</div>
                     </div>
                     <div className={`${styles.formOption}`}>
-                        <div className={`${styles.optionIcon} ${account == 'individual' ? styles['selected'] : ""}`}
-                            onClick={() => { accountTypeHandler('individual'); }}>
+                        <div className={`${styles.optionIcon} ${account == 'user' ? styles['selected'] : ""}`}
+                            onClick={() => { accountTypeHandler('user'); }}>
                             <Image src="/individual_icon.svg" height="150" width="150" />
                         </div>
-                        <div className={`${styles.pageText} ${account == 'individual' ? styles['selectedText'] : ""}`}>INDIVIDUAL</div>
+                        <div className={`${styles.pageText} ${account == 'user' ? styles['selectedText'] : ""}`}>INDIVIDUAL</div>
                     </div>
                 </div>
             </div>

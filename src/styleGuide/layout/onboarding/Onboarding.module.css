@@ -72,8 +72,21 @@
     grid-template-columns: auto auto auto auto;
 }
 
+.shrunkGridContainer{
+    display: grid;
+    width: 60vw;
+    height: 30vh;
+    grid-template-columns: auto auto auto auto auto;
+    margin: 30px 0 0 -5vw;
+
+}
+
 .gridItem{
     margin:5px 0;
+}
+
+.shrunkGridItem{
+    margin: 0;
 }
 
 .pageContent{
