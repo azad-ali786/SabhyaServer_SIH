@@ -1,108 +1,21 @@
 import React from 'react'
-import styles from "../../layout/profile/Profile.module.css";
+import styles from "./ProfileResourceCard.module.css";
+import { Icon } from "@iconify/react";
 
-const Resources = () => {
+const Resources = ({ key, imgLink, cardName, viewCount, hash }) => {
     return (
-        <div className={styles.sec_body1}>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
+        <div className={`${styles.card}`}>
+            <div className={`${styles.thumbnail}`}>
+                <img src={imgLink} />
+            </div>
+            <div className={`${styles.fileInfo}`}>
+                <div className={`${styles.fileName}`}>{cardName}</div>
+                <div className={`${styles.views}`}>
+                    <div><Icon icon={"ant-design:eye-filled"} height="30" width="30" /></div>
+                    {viewCount} views
                 </div>
             </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.card}>
-                <div className={styles.moreOp}></div>
-                <div className={styles.inner}>
-                    <img src="https://images.penguinrandomhouse.com/cover/700jpg/9780593211519" alt="" />
-                    <div className={styles.details}>
-                        <div className={styles.name}>Engineering Drawing</div>
-                        <div className={styles.views}>
-                            <img src="/eye.svg" alt="" />2.5k views</div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     )
 }

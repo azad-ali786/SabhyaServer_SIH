@@ -19,59 +19,12 @@ const Home = (props) => {
         }
     }, []);
 
-    // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
-
-
-
-    // const data = [
-    //     {
-    //         imageLink: "https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp",
-    //         instituteName: "National Institute of Technology, Hamirpur",
-    //         subscriptionRate: "349",
-    //         subscriberCount: "3.9k",
-    //         resourceCount: "108"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     },
-    //     {
-    //         imageLink: "https://static.toiimg.com/photo/msid-63738952/63738952.jpg",
-    //         instituteName: "Indian Institute of Technology, Delhi",
-    //         subscriptionRate: "129",
-    //         subscriberCount: "24.5k",
-    //         resourceCount: "354"
-    //     }
-    // ];
 
     const data = props.campaigns.map(
         heiData => {
             console.log(`hei/${heiData.hash}`);
             return {
+                id: heiData._id,
                 link: `hei/${heiData.hash}`,
                 imageLink: heiData.img.length == 0 ? "https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp" : heiData.img,
                 instituteName: heiData.name,
@@ -82,6 +35,18 @@ const Home = (props) => {
             }
         }
     );
+
+    function onClickHandler(link, id, name, imgLink) {
+        router.push({
+            pathname: link,
+            query: {
+                id: id,
+                name: name,
+                imgLink: imgLink
+            },
+
+        });
+    }
     // console.log(props.campaigns, "data data");
 
 
@@ -102,7 +67,7 @@ const Home = (props) => {
                         <div className={`${styles.gridContainer}`}>
                             {data.map(function (d, idx) {
                                 return (
-                                    <Link href={d.link}>
+                                    <div href={d.link} onClick={() => onClickHandler(d.link, d.id, d.instituteName, d.imageLink)}>
                                         <div className={`${styles.gridItem}`}>
                                             <DisplayCard
                                                 key={d.link}
@@ -114,7 +79,7 @@ const Home = (props) => {
                                                 resourceCount={d.resourceCount}
                                             />
                                         </div>
-                                    </Link>
+                                    </div>
                                 );
                             })}
                         </div>

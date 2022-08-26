@@ -3,9 +3,11 @@ import Dashboard from '../../components/dashboard';
 import styles from "./Profile.module.css";
 import Resources from '../../components/profileResource';
 import LoaderButton from '../../components/loaderButton';
+import Link from 'next/link';
 
-const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName, displaySubscribeButton, contractAddress }) => {
+const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName, displaySubscribeButton, contractAddress, heiData }) => {
     const [active, setActive] = useState("Software");
+    console.log(heiData);
     return (
         <div>
             <div className={styles.container}>
@@ -45,7 +47,25 @@ const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName
                 </div>
 
                 {active === "Hardware" && <Dashboard />}
-                {active === "Software" && <Resources />}
+                {active === "Software" && heiData &&
+                    <div className={`${styles.gridContainer}`}>
+                        {heiData.map(function (d, idx) {
+                            return (
+                                <Link href={`/resource/${d._id}`}>
+                                    <div className={`${styles.gridItem}`}>
+                                        <Resources
+                                            key={d.link}
+                                            imgLink={d.thumbnail}
+                                            cardName={d.name}
+                                            viewCount={d.viewCount}
+                                            hash={d.file}
+                                        />
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                }
             </section>
         </div>
     )
