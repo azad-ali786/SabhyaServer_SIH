@@ -20,6 +20,7 @@
     "@web3auth/web3auth": "^1.2.0",
     "axios": "^0.27.2",
     "dotenv": "^8.2.0",
+    "dropzone": "^6.0.0-beta.2",
     "fs-extra": "^9.1.0",
     "ganache-cli": "^6.12.2",
     "ipfs-http-client": "^56.0.3",
