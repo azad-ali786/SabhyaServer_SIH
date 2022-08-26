@@ -61,7 +61,7 @@ function Explore() {
             <div className={`${styles.gridContainer}`}>
                 {dataList.map(function (d, idx) {
                     return (
-                        <Link href={d.thumbnail}>
+                        <Link href={`/resource/${d._id}`}>
                             <div className={`${styles.gridItem}`}>
                                 <DisplayCard
                                     key={idx}
