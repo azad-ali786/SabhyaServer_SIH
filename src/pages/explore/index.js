@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import DisplayCard from '../../styleGuide/components/displayCard';
 import SideNavLayout from '../../styleGuide/layout/sidenav';
 import styles from "./Explore.module.css";
+import axios from "axios";
 
 function Explore() {
     const data = [
@@ -28,23 +29,47 @@ function Explore() {
             viewCount: "2.5k"
         }
     ]
+    const [dataList, setDataList] = useState([]);
+    useEffect(async()=>{
+        try{
+            var config = {
+                method: 'get',
+                url: 'https://gentle-lowlands-02621.herokuapp.com/constents',
+                headers: { 
+                  'auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDI2MDUzMTdiNzZmNDJjODA2NjIwNyIsImlhdCI6MTY2MTEwMDExNn0.70C7CzNfye7xpct5KoLbuNEHWCzOIPEK-MDGs5cnnOI', 
+                  'type': 'institute'
+                },
+                data : data
+              };
+
+            const res = await axios(config);
+            console.log(res.data); 
+            setDataList(res.data);
+
+        }catch(err){
+            console.log(err)
+        }
+
+    },[]);
+ 
     return (
         <SideNavLayout
             activeTab="explore"
             pageHeader="Explore"
         >
+        
             <div className={`${styles.gridContainer}`}>
-                {data.map(function (d, idx) {
+                {dataList.map(function (d, idx) {
                     return (
-                        <Link href={d.imageLink}>
+                        <Link href={d.thumbnail}>
                             <div className={`${styles.gridItem}`}>
                                 <DisplayCard
                                     key={idx}
                                     cardType="resource"
-                                    imgLink={d.imageLink}
-                                    cardName={d.resourceName}
-                                    universityName={d.universityName}
-                                    subscriberCount={d.subscriberCount}
+                                    imgLink={d.thumbnail}
+                                    cardName={d.name}
+                                    universityName={d.intiId.name}
+                                    subscriberCount={d.subscriberUser.length+d.subscriberInsti.length}
                                     viewCount={d.viewCount}
                                 />
                             </div>
