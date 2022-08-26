@@ -97,16 +97,16 @@ const Onboarding = () => {
             console.log("backend trigger")
             const res = await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", details);
 
-            if (typeof window !== "undefined") {
-                window.localStorage.setItem("token", res.data.token);
-                console.log("->from inside condition");
-                console.log(res);
-                console.log("this is token stored in local storage");
-                console.log(window.localStorage.getItem("token"));
-            }
-            console.log("->from outside condition");
-            console.log(res);
-            console.log(windows.localStorage.getItem("token"));
+            // if (typeof window !== "undefined") {
+            //     window.localStorage.setItem("token", res.data.token);
+            //     console.log("->from inside condition");
+            //     console.log(res);
+            //     console.log("this is token stored in local storage");
+            //     console.log(window.localStorage.getItem("token"));
+            // }
+            // console.log("->from outside condition");
+            // console.log(res);
+            // console.log(windows.localStorage.getItem("token"));
             router.push("/");
         }
         catch (err) {

@@ -90,3 +90,8 @@
 .fileDetails{
     font-size: 9px;
 }
+.message{
+    margin:10px 0 30px 0px;
+    text-align: center;
+    color:#1B4965
+}

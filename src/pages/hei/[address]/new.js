@@ -168,7 +168,7 @@ const NewRequest = (props) => {
             await campaign.methods.uploadfile(description, hash, web3.utils.toWei(amount, 'ether'), recipient).send({
                 from: accounts[0],
             });
-            setmsg({ header: "Congratulations", message: "You've successfully created request" });
+            setmsg({ header: "Congratulations", message: "You've successfully uploaded your resources" });
             const details = {
                 data: {
                     "idEth": address,
@@ -308,7 +308,10 @@ const NewRequest = (props) => {
                         btnText="Upload"
                     />
                 </div>
-                <Message success header={msg.header} content={msg.message} />
+                <div className={`${styles.message}`}>
+                    <Message success header={msg.header} content={msg.message} />
+                </div>
+
 
             </form>
 
