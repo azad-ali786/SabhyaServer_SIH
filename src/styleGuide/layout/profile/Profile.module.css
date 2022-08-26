@@ -10,6 +10,7 @@
     width: 100%;
     height: 100%;
     border-radius: 2rem;
+    object-fit: cover;
 }
 .container .img_overlay{
     position: absolute;
@@ -138,4 +139,7 @@
 .main_sec .sec_body1 .card .inner .details .views img{
     width: 55px;
     height: 2rem;
+}
+.subscribeBtn{
+    margin:10px 0 0 15vw;
 }
