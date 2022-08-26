@@ -1,5 +1,6 @@
 import React from 'react';
 import InputBox from '../../components/inputBox';
+import ImgDnD from '../../components/imageDnD'
 import styles from "./Onboarding.module.css";
 
 const InstituteDetails = ({ instituteName, changeHandler, instituteID, locationPIN, coverPhoto, subcriptionRate }) => {
@@ -41,16 +42,8 @@ const InstituteDetails = ({ instituteName, changeHandler, instituteID, locationP
                         />
                     </div>
                 </div>
-                <div className={`${styles.row}`}>
-                    <InputBox
-                        inputType="file"
-                        label="Upload Cover Photo"
-                        value={coverPhoto}
-                        name="coverPhoto"
-                        width="200px"
-                        changeHandler={changeHandler}
-
-                    />
+                <div className={`${styles.row} ${styles.image_form}`}>
+                   <ImgDnD />
                 </div>
                 <div className={`${styles.rowType2} ${styles.row}`}>
                     <div>

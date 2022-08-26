@@ -1,5 +1,6 @@
 import React from 'react';
 import InputBox from '../../components/inputBox';
+import ImgDnD from '../../components/imageDnD'
 import styles from "./Onboarding.module.css";
 
 export const IndividualDetails = ({ userName, associatedInstituteID, profilePhoto, changeHandler }) => {
@@ -31,16 +32,8 @@ export const IndividualDetails = ({ userName, associatedInstituteID, profilePhot
                         />
                     </div>
                 </div>
-                <div className={`${styles.row}`}>
-                    <InputBox
-                        inputType="file"
-                        label="Upload Profile Photo"
-                        value={profilePhoto}
-                        name="profilePhoto"
-                        width="200px"
-                        changeHandler={changeHandler}
-
-                    />
+                <div className={`${styles.row} ${styles.image_form}`}>
+                  <ImgDnD />
                 </div>
             </div>
         </div>
