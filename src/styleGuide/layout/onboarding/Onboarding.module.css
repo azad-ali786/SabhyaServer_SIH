@@ -98,6 +98,11 @@
     margin: 10px 0 10px 0;
 
 }
+
+.image_form {
+   width: 60vw;
+}
+
 .rowType2{
     display: flex;
     justify-content: flex-start;
