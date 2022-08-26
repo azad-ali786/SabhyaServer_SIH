@@ -3,11 +3,36 @@ import Resource from "../../../../ethereum/resource";
 import { Card, Divider } from 'semantic-ui-react'
 import SubscribeToForm from "../../../styleGuide/components/templates/SubscribeToForm";
 import ProfileLayout from "../../../styleGuide/layout/profile";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 // import { useLocation } from 'react-router-dom';
 
 const HeiDetails = (props) => {
     const { mc, fc, uc, ma, ca } = props;
     console.log(mc);
+    const [heiData, setHeiData] = useState();
+    const router = useRouter()
+    var config = {
+        method: 'get',
+        url: `https://gentle-lowlands-02621.herokuapp.com/instituteContent/${router.query.id}`,
+        headers: {
+            'auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDgzNzRmYTJjMTMzMDAxNjNiMDFkNyIsImlhdCI6MTY2MTQ4MjgzMn0.NJqGtWSS-iC4JgRD7rDGcsTvwqbt8CNiZvJfU21ZL64',
+            'type': 'institute'
+        },
+    };
+    useEffect(async () => {
+        try {
+            const res = await axios(config);
+            setHeiData(res.data);
+            console.log(res.data);
+        } catch (e) {
+            console.log(e)
+        }
+    }, []);
+
+
+
     // const renderCards = () => {
     //     return <Card.Group>
     //         <Card>
@@ -63,15 +88,15 @@ const HeiDetails = (props) => {
             <ProfileLayout
                 resources={fc}
                 subscribers={uc}
-                universityName="National Institute of Technology, Hamirpur"
-                imgLink={"https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp"}
+                universityName={router.query.name}
+                imgLink={router.query.imgLink}
                 displaySubscribeButton="1"
                 amount={mc}
                 contractAddress={ca}
+                heiData={heiData}
 
 
             />
-            <h3>Institutuon Details</h3>
             {/* {renderCards()} */}
             <Divider />
         </SideNavLayout>

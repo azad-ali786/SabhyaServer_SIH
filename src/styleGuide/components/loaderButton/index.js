@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./LoaderButton.module.css";
 import ResourceContract from "../../../../ethereum/resource";
 import web3 from "../../../../ethereum/web3";

@@ -1,6 +1,7 @@
 import SideNav from "../../components/sideNav";
 import styles from "./SideNavLayout.module.css";
 import react, { useEffect, useState } from "react";
+import axios from 'axios';
 
 const SideNavLayout = (props) => {
 
@@ -24,7 +25,7 @@ const SideNavLayout = (props) => {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                // console.log(JSON.stringify(response.data));
                 setInstituteName((response.data.name))
                 setInstituteImg((response.data.img));
                 setUserAddress((response.data.hash))
