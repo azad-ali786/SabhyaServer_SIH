@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Dashboard from '../../components/dashboard';
 import styles from "./Profile.module.css";
 import Resources from '../../components/profileResource';
-import FloatingButton from '../../components/floatingButton';
+import LoaderButton from '../../components/loaderButton';
 
 const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName, displaySubscribeButton, contractAddress }) => {
     const [active, setActive] = useState("Software");
@@ -28,7 +28,7 @@ const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName
             </div>
             {displaySubscribeButton == "1" ?
                 <div className={`${styles.subscribeBtn}`}>
-                    <FloatingButton
+                    <LoaderButton
                         btnText={`Subscribe @ ${amount} WEI per month`}
                         width="60vw"
                         contractAddress={contractAddress}

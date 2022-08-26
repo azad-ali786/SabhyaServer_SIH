@@ -7,16 +7,17 @@ import SideNavLayout from '../styleGuide/layout/sidenav';
 import Link from 'next/link';
 import DisplayCard from '../styleGuide/components/displayCard';
 import styles from "./index.module.css";
+import Spinner from "../styleGuide/components/spinner";
 
 const Home = (props) => {
     const router = useRouter();
     const { isAuthenticated } = useMoralis();
 
-    // useEffect(() => {
-    //     if (!isAuthenticated) {
-    //         router.push('/login')
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (window.localStorage.getItem("token") == null || window.localStorage.getItem("token").length == 0) {
+            router.push('/login')
+        }
+    }, []);
 
     // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
 
@@ -81,7 +82,7 @@ const Home = (props) => {
             }
         }
     );
-
+    // console.log(props.campaigns, "data data");
 
 
     return (
@@ -89,27 +90,37 @@ const Home = (props) => {
             <SideNavLayout
                 activeTab="home"
                 pageHeader="Home"
+
             // userAddress={isAuthenticated ? user.attributes.ethAddress : ""}
             >
-                <div className={`${styles.gridContainer}`}>
-                    {data.map(function (d, idx) {
-                        return (
-                            <Link href={d.link}>
-                                <div className={`${styles.gridItem}`}>
-                                    <DisplayCard
-                                        key={d.link}
-                                        cardType="institute"
-                                        imgLink={d.imageLink}
-                                        cardName={d.instituteName}
-                                        subscriptionRate={d.subscriptionRate}
-                                        subscriberCount={d.subscriberCount}
-                                        resourceCount={d.resourceCount}
-                                    />
-                                </div>
-                            </Link>
-                        );
-                    })}
-                </div>
+                {
+                    (!props.campaigns) ?
+                        <div className={`${styles.spinner}`}>
+                            <Spinner />
+                        </div>
+                        :
+                        <div className={`${styles.gridContainer}`}>
+                            {data.map(function (d, idx) {
+                                return (
+                                    <Link href={d.link}>
+                                        <div className={`${styles.gridItem}`}>
+                                            <DisplayCard
+                                                key={d.link}
+                                                cardType="institute"
+                                                imgLink={d.imageLink}
+                                                cardName={d.instituteName}
+                                                subscriptionRate={d.subscriptionRate}
+                                                subscriberCount={d.subscriberCount}
+                                                resourceCount={d.resourceCount}
+                                            />
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+
+                }
+
             </SideNavLayout>
         </>
     )
@@ -136,7 +147,7 @@ export async function getStaticProps() {
     // const HeiList = await hei.methods.getResources().call();
     const HeiData = await axios(config);
     // console.log(HeiList);
-    console.log(HeiData.data);
+
     return {
         props: {
             campaigns: HeiData.data

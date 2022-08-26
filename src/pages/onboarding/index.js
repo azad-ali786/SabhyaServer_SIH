@@ -83,7 +83,7 @@ const Onboarding = () => {
                 data: {
                     name: instituteDetails.instituteName,
                     hash: hash,
-                    email: "adxvwrvw12dsa3fdf@gmail.com",
+                    email: "teresa13213@gmail.com",
                     instiID: instituteDetails.instituteID,
                     pin: instituteDetails.locationPIN,
                     img: instituteDetails.coverPhoto,
@@ -95,8 +95,18 @@ const Onboarding = () => {
 
             }
             console.log("backend trigger")
-            await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", details);
-            console.log("done")
+            const res = await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountHEI", details);
+
+            if (typeof window !== "undefined") {
+                window.localStorage.setItem("token", res.data.token);
+                console.log("->from inside condition");
+                console.log(res);
+                console.log("this is token stored in local storage");
+                console.log(window.localStorage.getItem("token"));
+            }
+            console.log("->from outside condition");
+            console.log(res);
+            console.log(windows.localStorage.getItem("token"));
             router.push("/");
         }
         catch (err) {
@@ -119,7 +129,7 @@ const Onboarding = () => {
                     data: {
                         name: individualDetails.userName,
                         hash: hash.toString(),
-                        email: "123n@gmail.com",
+                        email: "testing9090@gmail.com",
                         img: individualDetails.profilePhoto,
                         addressEth: "String",
                         tags: interests,
@@ -128,7 +138,9 @@ const Onboarding = () => {
 
                 }
                 response = await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", details);
+                console.log(response ? response : "no response yet");
                 router.push("/");
+
             }
 
         }
