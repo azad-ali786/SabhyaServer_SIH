@@ -194,14 +194,14 @@ const NewRequest = (props) => {
                 data: details
             };
             response = await axios(config);
-            
+
             console.log(response);
             router.push("/explore");
 
         }
         catch (err) {
-            
-            console.log(err,"error here");
+
+            console.log(err, "error here");
         }
         setloading(false);
     }
@@ -252,6 +252,12 @@ const NewRequest = (props) => {
                                 <div className={`${styles.resourceUpload}`} onClick={fileUploadHandler}>
                                     Confirm & Upload Resource
                                 </div>
+                                {
+                                    hash == '' ?
+                                        " "
+                                        :
+                                        <p style={{ color: "#20b51b" }} > Files Encrypted</p>
+                                }
                             </div>
                         </div>
                         <div className={`${styles.rowSecondItem}`}>
@@ -293,14 +299,6 @@ const NewRequest = (props) => {
                             changeHandler={inputHandler}
                         />
                     </div>
-                    <div className={`${styles.row}`}>
-                        <div className={`${styles.categoriesLabel}`}>Categories</div>
-                        <PageTwo
-                            interestList={categories}
-                            interestToggler={categoryHandler}
-                            shrink="1"
-                        />
-                    </div>
                 </div>
                 <div className={`${styles.uploadBtn}`} onClick={(e) => {
                     e.preventDefault;
@@ -310,36 +308,9 @@ const NewRequest = (props) => {
                         btnText="Upload"
                     />
                 </div>
+                <Message success header={msg.header} content={msg.message} />
 
             </form>
-
-
-
-
-            <Container textAlign="center" text>
-                <Form
-                    style={{ marginTop: "5rem" }}
-                    onSubmit={submitHandler}
-                    loading={loading}
-                    error={msg.header === 'Error'}
-                    success={msg.header === "Congratulations"}                >
-
-                    <Form.Field>
-
-                        <input type="file" onChange={fileHandler} required />
-                    </Form.Field>
-                    <Button primary onClick={fileUploadHandler} >
-                        Upload
-                    </Button>
-                    <Button primary type="submit" >
-                        CREATE REQUEST
-                    </Button>
-
-                    {/* <NewDownload address={address}/> */}
-                    <Message success header={msg.header} content={msg.message} />
-                    <Message error header={msg.header} content={msg.message} />
-                </Form>
-            </Container>
 
         </SideNavLayout>
     </>

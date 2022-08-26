@@ -6,6 +6,7 @@ const SideNavLayout = (props) => {
 
     const [instituteName, setInstituteName] = useState("");
     const [instituteImg, setInstituteImg] = useState(null);
+    const [userAddress, setUserAddress] = useState("");
 
     useEffect(() => {
         var axios = require('axios');
@@ -26,6 +27,7 @@ const SideNavLayout = (props) => {
                 console.log(JSON.stringify(response.data));
                 setInstituteName((response.data.name))
                 setInstituteImg((response.data.img));
+                setUserAddress((response.data.hash))
                 console.log(instituteName);
                 console.log(instituteImg);
             })
@@ -39,7 +41,7 @@ const SideNavLayout = (props) => {
 
             <SideNav
                 activeTab={props.activeTab}
-                userAddr={props.userAddress}
+                userAddr={userAddress}
                 userName={instituteName}
                 imgLink={instituteImg}
             />
