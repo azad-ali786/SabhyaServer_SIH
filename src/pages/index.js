@@ -12,11 +12,11 @@ const Home = (props) => {
     const router = useRouter();
     const { isAuthenticated } = useMoralis();
 
-    // useEffect(() => {
-    //     if (!isAuthenticated) {
-    //         router.push('/login')
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push('/login')
+        }
+    }, []);
 
     // console.log(isAuthenticated ? user.attributes.ethAddress : "not authenticated");
 
