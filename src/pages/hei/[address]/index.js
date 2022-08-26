@@ -3,7 +3,7 @@ import Resource from "../../../../ethereum/resource";
 import { Card, Divider } from 'semantic-ui-react'
 import SubscribeToForm from "../../../styleGuide/components/templates/SubscribeToForm";
 import ProfileLayout from "../../../styleGuide/layout/profile";
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 const HeiDetails = (props) => {
     const { mc, fc, uc, ma, ca } = props;

@@ -1,4 +1,5 @@
 import { Form, Container, Button, Input, Message } from "semantic-ui-react";
+import { useRouter } from 'next/router'
 import { useCallback, useState } from "react";
 import web3 from "../../../../ethereum/web3";
 import Resource from "../../../../ethereum/resource";
@@ -13,10 +14,13 @@ import ImageDnD from "../../../styleGuide/components/imageDnD";
 import FloatingButton from "../../../styleGuide/components/floatingButton";
 import axios from 'axios';
 import { Icon } from '@iconify/react';
+import router from "next/router";
 
 const NewRequest = (props) => {
 
     const { mc, fc, uc, ma, address } = props;
+    const router = useRouter();
+
     // console.log(props, "my values")
     const [amount, setAmount] = useState('0');
     const [buffer, setbuffer] = useState(null);
@@ -180,22 +184,24 @@ const NewRequest = (props) => {
                 "_type": "institute"
 
             }
-
-            response = await axios.post("https://gentle-lowlands-02621.herokuapp.com/hei/addNewContent", details);
+            var config = {
+                method: 'post',
+                url: 'https://gentle-lowlands-02621.herokuapp.com/hei/addNewContent',
+                headers: {
+                    'auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDgwYmVmZTU2ZWZiMDAxNjQ0NDM4NSIsImlhdCI6MTY2MTQ3MTcyN30.InQ6X-xswIOwIpvq1fbwLBU2ZdCABUC0temYWOki7Ro',
+                    'type': 'institute'
+                },
+                data: details
+            };
+            response = await axios(config);
+            
             console.log(response);
+            router.push("/explore");
 
         }
         catch (err) {
-            let message = '';
-            if (err.code === 4001) {
-                message = err.message.split(":")[1];
-            } else {
-                message = err.message;
-            }
-            setmsg({
-                header: 'Error',
-                message: message
-            });
+            
+            console.log(err,"error here");
         }
         setloading(false);
     }
