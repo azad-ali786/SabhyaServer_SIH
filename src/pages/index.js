@@ -13,8 +13,13 @@ const Home = (props) => {
     const router = useRouter();
     const { isAuthenticated } = useMoralis();
 
+    // useEffect(() => {
+    //     if (!isAuthenticated || window.localStorage.getItem("token") == null || window.localStorage.getItem("token").length == 0) {
+    //         router.push('/login')
+    //     }
+    // }, []);
     useEffect(() => {
-        if (window.localStorage.getItem("token") == null || window.localStorage.getItem("token").length == 0) {
+        if (!isAuthenticated) {
             router.push('/login')
         }
     }, []);

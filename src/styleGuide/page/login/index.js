@@ -15,13 +15,11 @@ const Login = () => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (window.localStorage.getItem("token") == null || window.localStorage.getItem("token").length == 0) {
-            // console.log(window.localStorage.getItem("token"));
-            router.push('/onboarding');
+        if (isAuthenticated) {
+            router.push('/');
         } else {
             setLoaded(true);
         }
-        console.log(window.localStorage.getItem("token"));
     }, []);
 
     return (
