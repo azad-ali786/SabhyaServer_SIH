@@ -15,7 +15,7 @@ import web3 from '../../../ethereum/web3';
 const Onboarding = () => {
     const router = useRouter();
 
-    const [hash,setHash] = useState("");
+    const [hash, setHash] = useState("");
     const [page, setPage] = useState(1);
     const [accountType, setAccountType] = useState("");
     const [interests, setInterests] = useState([]);
@@ -63,7 +63,7 @@ const Onboarding = () => {
             [name]: value
         }));
     };
-    
+
     const instituteResourceHubHandler = async (subscriptionRate) => {
         if (Number(subscriptionRate) < 0) {
             return;
@@ -71,27 +71,27 @@ const Onboarding = () => {
         try {
             console.log("Trigger ");
             const accounts = await web3.eth.getAccounts();
-            console.log("Trigger "+ accounts[0]);
-             await hei.methods.createResource(subscriptionRate).send({
+            console.log("Trigger " + accounts[0]);
+            await hei.methods.createResource(subscriptionRate).send({
                 from: accounts[0],
             });
             const HeiList = await hei.methods.getResources().call();
-            console.log( HeiList );
-            setHash(HeiList[HeiList.length-1]);
+            console.log(HeiList);
+            setHash(HeiList[HeiList.length - 1]);
             console.log(instituteDetails)
             const details = {
-                data:{
-                    name:instituteDetails.instituteName,
+                data: {
+                    name: instituteDetails.instituteName,
                     hash: hash,
-                    email: "adxyafdf@gmail.com",
-                    instiID:instituteDetails.instituteID,
-                    pin:instituteDetails.locationPIN,
-                    img:instituteDetails.coverPhoto,
-                    Wei:instituteDetails.subscriptionRate,
-                    addressEth:"give eth",
-                    tags:interests,
+                    email: "adxvwrvw12dsa3fdf@gmail.com",
+                    instiID: instituteDetails.instituteID,
+                    pin: instituteDetails.locationPIN,
+                    img: instituteDetails.coverPhoto,
+                    Wei: instituteDetails.subscriptionRate,
+                    addressEth: "give eth",
+                    tags: interests,
                 },
-                _type:'institute',
+                _type: 'institute',
 
             }
             console.log("backend trigger")
@@ -100,6 +100,7 @@ const Onboarding = () => {
             router.push("/");
         }
         catch (err) {
+            console.log(err);
             let message = '';
             if (err.code === 4001) {
                 message = err.message.split(":")[1];
@@ -110,35 +111,35 @@ const Onboarding = () => {
     }
 
     const submitHandler = async () => {
-        try{
-            if(accountType == "institute") {
-                instituteResourceHubHandler(instituteDetails.subscriptionRate);       
-            } else { 
+        try {
+            if (accountType == "institute") {
+                instituteResourceHubHandler(instituteDetails.subscriptionRate);
+            } else {
                 const details = {
-                    data:{
+                    data: {
                         name: individualDetails.userName,
-                        hash: hash.toString(),        
-                        email:"n@gmail.com",        
+                        hash: hash.toString(),
+                        email: "123n@gmail.com",
                         img: individualDetails.profilePhoto,
                         addressEth: "String",
                         tags: interests,
                     },
-                    _type:'user',
-    
+                    _type: 'user',
+
                 }
-                response =  await  axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", details);
+                response = await axios.post("https://gentle-lowlands-02621.herokuapp.com/auth/createAccountUser", details);
                 router.push("/");
             }
-            
+
         }
-        catch(e){
-            console.log(e,"error")
+        catch (e) {
+            console.log(e, "error")
         }
     }
 
     return (
         <div>
-            <form onSubmit= {(e) => submitHandler(e)} >
+            <form onSubmit={(e) => submitHandler(e)} >
 
                 {/* **********ONBOARDING SCREEN 1********** */}
                 <div className={`${page == 1 ? "" : styles["hidden"]}`}>
@@ -211,14 +212,14 @@ const Onboarding = () => {
                             />
                         </div>
                         <div>
-                                    <div className={`${styles.floatingBtn2}`} onClick={(e) => {
-                                        e.preventDefault;
-                                        submitHandler();
-                                    }}>
-                                        <FloatingButton
-                                            btnText="SUBMIT"
-                                        />
-                                    </div>
+                            <div className={`${styles.floatingBtn2}`} onClick={(e) => {
+                                e.preventDefault;
+                                submitHandler();
+                            }}>
+                                <FloatingButton
+                                    btnText="SUBMIT"
+                                />
+                            </div>
                         </div>
                     </div>
 

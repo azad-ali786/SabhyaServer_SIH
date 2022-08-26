@@ -41,7 +41,7 @@ function SideNav({ activeTab, userAddr }) {
                     </a>
                 </Link>
 
-                <Link href="/hei/0xC05A1cA4352211Dc028F01eb7c0fEff8d013c86E/new">
+                <Link href="/hei/0x2337cB6278CC4ACf7027597665481f0D157D007b/new">
                     <a>
                         <div className={`${styles.addButton}`}>
                             {activeTab == "newResource" ?

@@ -67,6 +67,8 @@ const HeiDetails = (props) => {
                 imgLink={"https://qph.cf2.quoracdn.net/main-qimg-d46f4d8813a9553d2cdc13f8a98d0aaf.webp"}
                 displaySubscribeButton="1"
                 amount={mc}
+                contractAddress={ca}
+
 
             />
             <h3>Institutuon Details</h3>

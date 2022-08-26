@@ -4,7 +4,7 @@ import styles from "./Profile.module.css";
 import Resources from '../../components/profileResource';
 import FloatingButton from '../../components/floatingButton';
 
-const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName, displaySubscribeButton }) => {
+const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName, displaySubscribeButton, contractAddress }) => {
     const [active, setActive] = useState("Software");
     return (
         <div>
@@ -31,6 +31,8 @@ const ProfileLayout = ({ amount, imgLink, resources, subscribers, universityName
                     <FloatingButton
                         btnText={`Subscribe @ ${amount} WEI per month`}
                         width="60vw"
+                        contractAddress={contractAddress}
+                        amount={amount}
                     />
                 </div>
                 : <></>
