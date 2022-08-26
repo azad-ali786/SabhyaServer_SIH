@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
 import Image from 'next/image';
 import { useMoralis } from "react-moralis";
-import {Icon} from "@iconify/react"
+import { Icon } from "@iconify/react"
 import Navbar from '../../components/navBar';
 import Welcome from '../../components/welcome';
 import Spinner from '../../components/spinner'
@@ -15,12 +15,14 @@ const Login = () => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (isAuthenticated) {
-            router.push('/onboarding')
+        if (window.localStorage.getItem("token") == null || window.localStorage.getItem("token").length == 0) {
+            // console.log(window.localStorage.getItem("token"));
+            router.push('/onboarding');
         } else {
-            setLoaded(true)
+            setLoaded(true);
         }
-    }, [isAuthenticated]);
+        console.log(window.localStorage.getItem("token"));
+    }, []);
 
     return (
         <>
@@ -33,12 +35,12 @@ const Login = () => {
                 </button>)}
 
                 {authError ? (<div class="flex p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
-                <Icon icon="bi:info" />
-                <span class="sr-only">Info</span>
-                <div>
-                  <span class="font-medium">{authError.name}</span> {authError.message}
-                </div>
-              </div>) : (<div></div>)}
+                    <Icon icon="bi:info" />
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">{authError.name}</span> {authError.message}
+                    </div>
+                </div>) : (<div></div>)}
 
             </div>
 

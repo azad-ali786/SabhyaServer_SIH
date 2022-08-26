@@ -4,18 +4,18 @@ import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function SideNav({ activeTab, userAddr }) {
+function SideNav({ activeTab, userAddr, userName, imgLink }) {
 
     return (<div className={`${styles.sideNavLayout}`}>
         <div className={`${styles.sideNav}`}>
             <div className={`${styles.profileInfo}`}>
                 <div className={`${styles.coverPhoto}`}>
                     <img
-                        src="https://images.unsplash.com/photo-1645423660753-74c9121fe6dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGluc3RpdHV0ZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60"
+                        src={imgLink}
                         alt="Cover Photo" />
                 </div>
                 <div className={`${styles.regularSmBlack}`}>
-                    National Institute of Technology, Silchar
+                    {userName}
                 </div>
             </div>
             <div className={`${styles.navigationTabs}`}>

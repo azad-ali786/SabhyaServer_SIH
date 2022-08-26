@@ -17,7 +17,7 @@ function DisplayCard({ displaySubscribeButton, cardType, imgLink, cardName, subs
                         <>
                             <div className={`${styles.info}`}>
                                 <Icon icon="akar-icons:money" width="25" height="25" />
-                                <div className={`${styles.infoText}`}>₹{subscriptionRate} per month</div>
+                                <div className={`${styles.infoText}`}>{subscriptionRate} WEI per month</div>
                             </div>
                             <div className={`${styles.info}`}>
                                 <Icon icon="ant-design:user-outlined" width="25" height="25" />
