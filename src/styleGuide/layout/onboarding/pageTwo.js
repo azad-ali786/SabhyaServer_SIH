@@ -5,20 +5,19 @@ import styles from "./Onboarding.module.css";
 function PageTwo({ interestList, interestToggler, shrink }) {
 
     const interests = [
-        "Philosophy",
-        "English",
-        "Mathematics",
-        "History",
-        "Mechanics",
+        "Ethics",
+        "Machine Learning",
+        "Deep Learning",
+        "AI",
+        "DSA",
+        "Business",
+        "Science",
         "Cryptography",
-        "Electronics",
-        "Political Science",
-        "Chemistry",
-        "Physics",
-        "Economics",
-        "Instrumentation",
-        "Automation",
-        "Sociology",
+        "CS Fundamentals",
+        "Web Dev",
+        "App Dev",
+        "Technology",
+        "Others"
     ]
     return (
         <div className={`${styles.pageTwo}`}>
